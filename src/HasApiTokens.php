@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Sanctum;
+namespace Zainaldeen\Sanctum;
 
 use DateTimeInterface;
 use Illuminate\Support\Str;
@@ -10,7 +10,7 @@ trait HasApiTokens
     /**
      * The access token the user is using for the current request.
      *
-     * @var \Laravel\Sanctum\Contracts\HasAbilities
+     * @var \Zainaldeen\Sanctum\Contracts\HasAbilities
      */
     protected $accessToken;
 
@@ -40,25 +40,26 @@ trait HasApiTokens
      *
      * @param  string  $name
      * @param  array  $abilities
+     * @return \Zainaldeen\Sanctum\NewAccessToken
      * @param  \DateTimeInterface|null $expiresAt
-     * @return \Laravel\Sanctum\NewAccessToken
      */
     public function createToken(string $name, array $abilities = ['*'], DateTimeInterface $expiresAt = null)
     {
         $token = $this->tokens()->create([
             'name' => $name,
             'token' => hash('sha256', $plainTextToken = Str::random(40)),
+            'refresh_token' => hash('sha256', $refreshTokenPlainTextToken = Str::random(40)),
             'abilities' => $abilities,
             'expires_at' => $expiresAt,
         ]);
 
-        return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
+        return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken, $token->getKey().'|'.$refreshTokenPlainTextToken);
     }
 
     /**
      * Get the access token currently associated with the user.
      *
-     * @return \Laravel\Sanctum\Contracts\HasAbilities
+     * @return \Zainaldeen\Sanctum\Contracts\HasAbilities
      */
     public function currentAccessToken()
     {
@@ -68,7 +69,7 @@ trait HasApiTokens
     /**
      * Set the current access token for the user.
      *
-     * @param  \Laravel\Sanctum\Contracts\HasAbilities  $accessToken
+     * @param  \Zainaldeen\Sanctum\Contracts\HasAbilities  $accessToken
      * @return $this
      */
     public function withAccessToken($accessToken)
