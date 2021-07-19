@@ -1,6 +1,6 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/sanctum/compare/v2.11.2...2.x)
+## [Unreleased](https://github.com/laravel/sanctum/compare/v2.11.2...master)
 
 
 ## [v2.11.2 (2021-06-15)](https://github.com/laravel/sanctum/compare/v2.11.1...v2.11.2)
@@ -60,6 +60,8 @@
 ### Fixed
 - Return json response when the request expects a json ([#247](https://github.com/laravel/sanctum/pull/247))
 
+### Added
+- Expiration Dates ([#252](https://github.com/laravel/sanctum/pull/252))
 
 ## [v2.8.2 (2020-11-24)](https://github.com/laravel/sanctum/compare/v2.8.1...v2.8.2)
 
